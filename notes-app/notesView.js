@@ -25,6 +25,7 @@ class NotesView {
       noteEl.className = "note";
       this.mainContainerEl.append(noteEl);
     });
+    this.inputEl.value = "";
   }
 
   addNewNote(newNote) {
