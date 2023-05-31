@@ -20,14 +20,15 @@ describe('NotesView', () => {
     expect(document.querySelector('div.note')).toEqual(null);
   })
   
-  it("it should display two notes", () => {
+  it("it should display one note", () => {
     const model = new NotesModel();
     const view = new NotesView(model);
-    model.addNote('First note');
-    model.addNote('Second note');
-
-    view.displayNotes();
-
-    expect(document.querySelectorAll('.note').length).toEqual(2);
+    const inputEl = document.querySelector('#note-input');
+    inputEl.value = 'This is a new note';
+    const buttonEl = document.querySelector('#add-note-btn');
+    buttonEl.click();
+    
+    expect(document.querySelectorAll('.note').length).toEqual(1);
+    expect(document.querySelectorAll('.note')[0].textContent).toEqual('This is a new note');
   })
 })
