@@ -11,13 +11,13 @@
           this.mainContainerEL = document.querySelector("#main-container");
           this.buttonEl = document.querySelector("#show-message-button");
           this.deleteButtonEl = document.querySelector("#delete-message-button");
+          this.inputEl = document.querySelector("#message-input");
           this.buttonEl.addEventListener("click", () => {
             this.displayMessage();
           });
           this.deleteButtonEl.addEventListener("click", () => {
             this.hideMessage();
           });
-          this.inputEl = document.querySelector("#message-input");
         }
         displayMessage() {
           const messageEl = document.createElement("div");
