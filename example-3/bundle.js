@@ -26,7 +26,7 @@
         }
         hideMessage() {
           const messageEl = document.querySelector("#message");
-          messageEl.remove();
+          this.mainContainerEL.remove(messageEl);
         }
       };
       module.exports = MessageView2;
