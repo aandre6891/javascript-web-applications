@@ -17,16 +17,17 @@
           this.deleteButtonEl.addEventListener("click", () => {
             this.hideMessage();
           });
+          this.inputEl = document.querySelector("#message-input");
         }
         displayMessage() {
           const messageEl = document.createElement("div");
           messageEl.id = "message";
-          messageEl.innerText = "This message displayed by JavaScript";
+          messageEl.innerText = this.inputEl.value;
           this.mainContainerEL.append(messageEl);
         }
         hideMessage() {
           const messageEl = document.querySelector("#message");
-          this.mainContainerEL.remove(messageEl);
+          messageEl.remove();
         }
       };
       module.exports = MessageView2;
