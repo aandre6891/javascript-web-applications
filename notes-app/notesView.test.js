@@ -5,6 +5,7 @@
 const fs = require("fs");
 const NotesView = require("./notesView");
 const NotesModel = require("./notesModel");
+const NotesClient = require("./notesClient");
 
 describe("NotesView", () => {
   beforeEach(() => {
@@ -46,13 +47,18 @@ describe("NotesView", () => {
     expect(document.querySelectorAll(".note").length).toEqual(2);
   });
 
-  it("should display the notes", async () => {
+  it("should display the notes from the API", () => {
     const mockClient = {
-      loadNotes: async () => ["This is a new note", "This is another note"],
+      loadNotes: jest.fn()
     };
+
+    mockClient.loadNotes.mockImplementationOnce((callback) => {
+      callback(["This is a new note", "This is another note"]);
+    })
+
     const model = new NotesModel();
     const view = new NotesView(model, mockClient);
-    await view.displayNotesFromApi();
+    view.displayNotesFromApi();
     expect(document.querySelectorAll(".note").length).toBe(2);
     expect(document.querySelectorAll(".note")[0].textContent).toBe(
       "This is a new note"
