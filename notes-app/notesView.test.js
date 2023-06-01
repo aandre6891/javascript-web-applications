@@ -49,12 +49,12 @@ describe("NotesView", () => {
 
   it("should display the notes from the API", () => {
     const mockClient = {
-      loadNotes: jest.fn()
+      loadNotes: jest.fn(),
     };
 
     mockClient.loadNotes.mockImplementationOnce((callback) => {
       callback(["This is a new note", "This is another note"]);
-    })
+    });
 
     const model = new NotesModel();
     const view = new NotesView(model, mockClient);
