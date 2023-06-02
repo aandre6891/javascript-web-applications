@@ -30,4 +30,22 @@ describe('NotesClient class', () => {
       done();
     });
   });
+    
+  it('sends a POST request', async () => {
+    const client = new NotesClient();
+
+    fetch.mockResponseOnce(JSON.stringify({}));
+
+    const url = 'http://localhost:3000/notes';
+    const options = {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ content: "New note" })
+    };
+
+    await client.createNote('New note');
+    expect(fetch).toHaveBeenCalledWith(url, options);
+  });
 });

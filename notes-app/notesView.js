@@ -21,7 +21,6 @@ class NotesView {
     });
   }
   
-
   displayNotes() {
     const notesEl = document.querySelectorAll(".note");
     notesEl.forEach((note) => {
@@ -39,8 +38,9 @@ class NotesView {
   }
 
   addNewNote(newNote) {
-    this.model.addNote(newNote);
-    this.displayNotes();
+    this.client.createNote(newNote, () => {
+      this.displayNotesFromApi();
+    });
   }
 }
 
