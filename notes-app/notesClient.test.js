@@ -31,7 +31,7 @@ describe('NotesClient class', () => {
     });
   });
     
-  it('sends a POST request', async () => {
+  it('sends a POST request', (done) => {
     const client = new NotesClient();
 
     fetch.mockResponseOnce(JSON.stringify({}));
@@ -45,7 +45,9 @@ describe('NotesClient class', () => {
       body: JSON.stringify({ content: "New note" })
     };
 
-    await client.createNote('New note');
-    expect(fetch).toHaveBeenCalledWith(url, options);
+    client.createNote('New note', (callback) => {
+      expect(fetch).toHaveBeenCalledWith(url, options);
+      done();
+    });
   });
 });
