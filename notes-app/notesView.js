@@ -8,6 +8,7 @@ class NotesView {
     this.mainContainerEl = document.querySelector("#main-container");
     this.buttonEl = document.querySelector("#add-note-btn");
     this.inputEl = document.querySelector("#note-input");
+    this.errorEl = document.querySelector(".error");
 
     this.buttonEl.addEventListener("click", () => {
       this.addNewNote();
@@ -15,22 +16,23 @@ class NotesView {
   }
 
   displayNotesFromApi() {
-    this.client.loadNotes((notes) => {
-      this.model.setNotes(notes);
-      this.displayNotes();
-    },
+    this.client.loadNotes(
+      (notes) => {
+        this.model.setNotes(notes);
+        this.displayNotes();
+      },
       (error) => {
         this.displayError(error);
       }
     );
   }
-  
+
   displayNotes() {
     const notesEl = document.querySelectorAll(".note");
     notesEl.forEach((note) => {
       note.remove();
     });
-    
+
     const allNotes = this.model.getNotes();
     allNotes.forEach((note) => {
       const noteEl = document.createElement("div");
@@ -43,16 +45,26 @@ class NotesView {
 
   addNewNote() {
     // this.model.addNote(newNote);
-    this.client.createNote(this.inputEl.value, () => {
-      this.displayNotesFromApi();
-    });
+    this.client.createNote(
+      this.inputEl.value,
+      () => {
+        this.displayNotesFromApi();
+      },
+      (error) => {
+        this.displayError(error);
+      }
+    );
   }
 
   displayError(errorMessage) {
+    if(this.errorEl) {
+      this.errorEl.remove();
+    }
     const errorEl = document.createElement("div");
     errorEl.textContent = "Oops, something went wrong!";
     errorEl.className = "error";
     this.mainContainerEl.append(errorEl);
+    this.errorEl = errorEl;
   }
 }
 

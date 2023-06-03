@@ -10,7 +10,7 @@ class NotesClient {
       });
   }
 
-  createNote(note, callback) {
+  createNote(note, successCallback, errorCallback) {
     fetch("http://localhost:3000/notes", {
       method: "POST",
       headers: {
@@ -20,13 +20,12 @@ class NotesClient {
     })
       .then((response) => response.json())
       .then((data) => {
-        callback(data);
+        successCallback(data);
         console.log("Success:", data);
       }) 
       .catch((error) => {
-        console.log(error);
+        errorCallback(error);
       });
-      console.log(JSON.stringify(note));
   }
 }
 
