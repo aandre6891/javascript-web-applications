@@ -11,7 +11,7 @@ class NotesModel {
   }
 
   setNotes(notes) {
-    this.notes = notes;
+    this.notes = Array.isArray(notes) ? notes : [];
   }
 
   reset() {

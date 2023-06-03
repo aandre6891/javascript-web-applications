@@ -69,4 +69,21 @@ describe("NotesView", () => {
       "This is another note"
     );
   });
+
+  it('should display an error message', async () => {
+    const mockClient = {
+      loadNotes: jest.fn(),
+    };
+
+    mockClient.loadNotes.mockImplementationOnce((successCallback, errorCallback) => {
+      errorCallback('Error');
+    });
+
+    const model = new NotesModel();
+    const view = new NotesView(model, mockClient);
+    jest.spyOn(view, 'displayError');
+    await view.displayNotesFromApi();
+
+    expect(view.displayError).toHaveBeenCalled();
+  })
 });
