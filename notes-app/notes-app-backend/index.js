@@ -4,12 +4,12 @@ const app = express();
 const PORT = 3000;
 
 app.use(cors())
+app.use(express.json());
 
 let notes = [
   'This is an example note already in the server'
 ];
 
-app.use(express.json());
 
 app.get('/notes', (_req, res) => {
   res.send(JSON.stringify(notes));
